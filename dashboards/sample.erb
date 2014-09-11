@@ -1,4 +1,11 @@
+<script type='text/javascript'>
+    $(function() {
+        Dashing.cycleDashboards({timeInSeconds: 15, stagger: true});
+    });
+</script>
+
 <% content_for :title do %>Birmingham.IO is Dashing<% end %>
+
 <div class="gridster">
   <ul>
     <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
@@ -20,6 +27,11 @@
     <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
       <div data-id="convergence" data-view="Graph" data-title="Convergence" style="background-color:#ff9618"></div>
     </li>
+  </ul>
+</div>
+
+<div class="gridster">
+  <ul>
     <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
       <div data-id="twitter_mentions" data-view="Comments" style="background-color:#ff9618;" data-moreinfo="Tweets by @BirminghamIO"></div>
       <i class="icon-twitter icon-background"></i>
