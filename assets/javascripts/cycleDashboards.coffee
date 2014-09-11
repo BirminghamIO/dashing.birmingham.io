@@ -115,6 +115,12 @@ hideFunctions = {
         }
     }
 
+    plain: {
+        transitionFunction: ($dashboard, options, done) ->
+            $dashboard.hide()
+            done()
+    }
+
     # 3D spinning transition.  It's cool, but it crashes Chrome if you sleep and wake your machine.
 
     # spin: {
@@ -200,6 +206,12 @@ showFunctions = {
 
     implode: reverseTransition(hideFunctions.explode)
 
+    plain: {
+        transitionFunction: ($dashboard, options, done) ->
+            $dashboard.show()
+            done()
+    }
+
 }
 
 # Move an element from one place to another using a CSS3 transition.
@@ -281,7 +293,7 @@ showHideDashboard = (visible, stagger, $dashboard, transitions, done) ->
     done = () ->
         sleep 0, () ->
             # Make sure the dashboard is in a sane state.
-            $dashboard.toggle( visible )
+            $dashboard.toggle( visible ).resize()
 
             sleep 0, () ->
                 # Clear any styles we've set on the widgets.
@@ -398,7 +410,15 @@ Dashing.cycleDashboardsNow = do () ->
                 transitionInProgress = false
 
         # Hide the old dashboard
-        hideFunction = pickMember hideFunctions
+        hideFunction = null
+
+        if isString options.hideFunction
+            hideFunction = {key: options.hideFunction, value: hideFunctions[options.hideFunction]}
+        else if options.hideFunction?
+            hideFunction = {key: "hideFunction", value: options.hideFunction}
+
+        if !hideFunction
+            hideFunction = pickMember hideFunctions
 
         showNewDashboard = () ->
             options.onTransition?($($dashboards[visibleIndex]))
@@ -410,7 +430,13 @@ Dashing.cycleDashboardsNow = do () ->
                 showFunction = {key: "chainsTo", value: chainsTo}
 
             if !showFunction
-                showFunction = pickMember showFunctions
+                if isString options.showFunction
+                    showFunction = {key: options.showFunction, value: showFunctions[options.showFunction]}
+                else if options.showFunction?
+                    showFunction = {key: "showFunction", value: options.showFunction}
+
+                if !showFunction
+                    showFunction = pickMember showFunctions
 
             # console.log "Showing dashboard #{visibleIndex} #{showFunction.key}"
             showHideDashboard true, stagger, $dashboards[visibleIndex], showFunction.value, () ->
