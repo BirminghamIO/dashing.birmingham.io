@@ -491,7 +491,7 @@ Dashing.cycleDashboards = (options) ->
         $(dashboard).toggle(dashboardIndex is (startDashboard - 1))
 
         # Set all dashboards to position: absolute so they stack one on top of the other
-        $(dashboard).css "position": "absolute"
+        #$(dashboard).css "position": "absolute"
 
     # If the user specified a dashboard, then don't cycle from one dashboard to the next.
     if !startDashboardParam? and (timeInSeconds > 0)
