@@ -107,7 +107,7 @@ end
 user      = ENV['GITHUB_USER']
 token     = ENV['GITHUB_TOKEN']
 org       = "BirminghamIO"
-hist_size = 5
+hist_size = 7
 
 SCHEDULER.every '5m', :first_in => 0 do
   feed   = GithubFeed.new(user, org, token)
