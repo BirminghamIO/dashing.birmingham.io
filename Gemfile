@@ -7,3 +7,4 @@ gem 'twitter', '>= 5.9.0'
 gem 'dotenv'
 gem 'faraday'
 gem 'discourse_api'
+gem 'passenger' # Use Passenger on Heroku/Dokku instead of Thin.
